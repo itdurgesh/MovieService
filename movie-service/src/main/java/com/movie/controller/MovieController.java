@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,9 +46,10 @@ public class MovieController {
 		return movieService.retriveMovies(movieId);
 		
 	}
-	@DeleteMapping(path = "remove", produces = "application/json")
-	public String removeMovie(@RequestBody MovieRquest removeRequest) {
-		return movieService.removeMovie(removeRequest);
+	
+	@DeleteMapping(path = "remove/{movieId}", produces = "application/json")
+	public String removeMovie(@PathVariable(value = "movieId") Integer movieId) {
+		return movieService.removeMovie(movieId);
 		
 	}
 

@@ -20,5 +20,5 @@ public interface MovieService {
 	
 	List<Movie> retriveMovies(Integer movieId);
 	
-	String removeMovie(MovieRquest movieRequest);
+	String removeMovie(Integer movieRequest);
 }

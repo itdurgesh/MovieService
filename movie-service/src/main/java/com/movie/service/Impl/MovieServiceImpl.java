@@ -76,8 +76,8 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public String removeMovie(MovieRquest movieRequest) {
-		Optional<MovieEntity> optional = movieDao.findById(movieRequest.getId());
+	public String removeMovie(Integer movieRequest) {
+		Optional<MovieEntity> optional = movieDao.findById(movieRequest);
 		if(optional.isPresent()) {
 			movieDao.delete(optional.get());
 			return "success";
