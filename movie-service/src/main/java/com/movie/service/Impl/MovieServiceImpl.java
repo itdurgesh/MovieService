@@ -15,6 +15,7 @@ import com.movie.bean.MovieEntity;
 import com.movie.bean.request.MovieRquest;
 import com.movie.bean.response.Movie;
 import com.movie.dao.MovieDao;
+import com.movie.exception.InvalidRatingException;
 import com.movie.exception.MovieException;
 import com.movie.mapper.Mapper;
 import com.movie.service.MovieService;
@@ -30,6 +31,9 @@ public class MovieServiceImpl implements MovieService {
 
 	@Override
 	public Movie createMovie(MovieRquest movieRequest) {
+		if(!validateRating(movieRequest.getStarRating())) {
+			throw new InvalidRatingException("Star rating should be in between(0.5 to 5.0)");
+		}
 		MovieEntity movie = Mapper.mapRequestIntoEntity(movieRequest);
 		movie =movieDao.save(movie);
 		return Mapper.mapEntityIntoMovie(movie);
@@ -39,6 +43,9 @@ public class MovieServiceImpl implements MovieService {
 
 	@Override
 	public Movie updateMovie(MovieRquest movieRequest) throws MovieException {
+		if(!validateRating(movieRequest.getStarRating())) {
+			throw new InvalidRatingException("Star rating should be in between(0.5 to 5.0)");
+		}
 		Optional<MovieEntity> entity = movieDao.findById(movieRequest.getId());
 		Movie movie = null;
 		if(entity.isPresent()) {
@@ -86,6 +93,11 @@ public class MovieServiceImpl implements MovieService {
 		}
 		
 		
+	}
+	
+	
+	private boolean validateRating(double rating) {
+		return rating >= 0.5 && rating <= 5.0;
 	}
 
 }

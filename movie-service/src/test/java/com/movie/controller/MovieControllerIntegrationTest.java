@@ -59,14 +59,14 @@ public class MovieControllerIntegrationTest {
     	MovieRquest movieReq = new MovieRquest();
     	movieReq.setTitle("The Accountent");
     	movieReq.setCategory("13+");
-    	movieReq.setStarRating(3.9);
+    	movieReq.setStarRating(0.5);
         
         ResponseEntity<Movie> postResponse = restTemplate.postForEntity(getRootUrl() + "/movie/create", movieReq, Movie.class);
         assertNotNull(postResponse);
         assertNotNull(postResponse.getBody());
     }
 
-  @Test
+    @Test
     public void testRetriveAllMovies() {
     HttpHeaders headers = new HttpHeaders();
        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
@@ -75,19 +75,19 @@ public class MovieControllerIntegrationTest {
        assertNotNull(response.getBody());
    }
 
- // @Test
+    @Test
 	public void testUpdateMovie() {
 		MovieRquest movieReq = new MovieRquest();
 		movieReq.setId(1);
 		movieReq.setTitle("The Accountent");
 		movieReq.setCategory("13+");
-		movieReq.setStarRating(3.9);
+		movieReq.setStarRating(5.0);
 
 		Movie postResponse = restTemplate.postForObject(getRootUrl() + "/movie/update", movieReq, Movie.class);
 		assertNotNull(postResponse);
 	}
  
-  @Test
+    @Test
 	public void testRemoveMovie() {
 	  	Integer movieId = 1;
 	  	Map<String,Integer> variables = new HashMap<>();
